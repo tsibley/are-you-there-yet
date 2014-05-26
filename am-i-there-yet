@@ -1,22 +1,35 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use utf8;
+
+binmode STDERR, ':encoding(utf-8)';
 
 use Email::MIME::Kit;
 use Email::Sender::Simple qw(sendmail);
 use FindBin qw($RealBin);
-use LWP::Simple qw(getstore);
+use LWP::Simple qw(getstore is_success);
 use Try::Tiny;
 
-my $url = 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=47.637066,-122.328346&fov=90&heading=355&pitch=0&sensor=false';
+my $kit = "$RealBin/msgkit";
+my $url = 'https://maps.googleapis.com/maps/api/streetview'
+        . '?size=640x640'
+        . '&location=47.637066,-122.328346'
+        . '&fov=90'
+        . '&heading=355'
+        . '&pitch=0'
+        . '&sensor=false';
 
-my $kit = Email::MIME::Kit->new({ source => "$RealBin/msgkit/" });
-my $email = $kit->assemble({
-
-});
+my $rc = getstore($url, "$kit/streetview.jpg");
+die "couldn't store «$url» at «$kit/streetview.jpg», status «$rc»\n"
+    unless is_success($rc);
 
 try {
-    my $msg = ;
+    my $kit = Email::MIME::Kit->new({
+        manifest_reader => 'YAML',
+        source          => $kit,
+    });
+    my $msg = $kit->assemble;
     sendmail($msg);
 } catch {
     die "sending message failed: $_\n";

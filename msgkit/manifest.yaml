@@ -1,0 +1,15 @@
+---
+renderer: TT
+header:
+- Subject: "Are you there yet?"
+- From: tom@cue.zulutango.net
+- To: tom@zulutango.org
+alternatives:
+- container_type: multipart/related
+  type: text/html
+  path: body.html
+  attributes:
+    charset: utf-8
+  attachments:
+  - type: image/jpeg
+    path: streetview.jpg
