@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Email::MIME::Kit;
+use Email::Sender::Simple qw(sendmail);
+use FindBin qw($RealBin);
+use LWP::Simple qw(getstore);
+use Try::Tiny;
+
+my $url = 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=47.637066,-122.328346&fov=90&heading=355&pitch=0&sensor=false';
+
+my $kit = Email::MIME::Kit->new({ source => "$RealBin/msgkit/" });
+my $email = $kit->assemble({
+
+});
+
+try {
+    my $msg = ;
+    sendmail($msg);
+} catch {
+    die "sending message failed: $_\n";
+};
