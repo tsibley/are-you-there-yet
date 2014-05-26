@@ -3,7 +3,7 @@ renderer: TT
 header:
 - Subject: "Are you there yet?"
 - From: tom@cue.zulutango.net
-- To: tom@zulutango.org
+- To: "[% to %]"
 alternatives:
 - container_type: multipart/related
   type: text/html

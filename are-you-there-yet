@@ -2,8 +2,10 @@
 use strict;
 use warnings;
 use utf8;
-
 binmode STDERR, ':encoding(utf-8)';
+
+my $to = shift
+    or die "A recipient address is required\n";
 
 use Email::MIME::Kit;
 use Email::Sender::Simple qw(sendmail);
@@ -29,7 +31,7 @@ try {
         manifest_reader => 'YAML',
         source          => $kit,
     });
-    my $msg = $kit->assemble;
+    my $msg = $kit->assemble({ to => $to });
     sendmail($msg);
 } catch {
     die "sending message failed: $_\n";
