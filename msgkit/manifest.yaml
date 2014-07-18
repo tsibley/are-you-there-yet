@@ -13,3 +13,4 @@ alternatives:
   attachments:
   - type: image/jpeg
     path: streetview.jpg
+    renderer: null
